@@ -1,0 +1,12 @@
+# AWS CDK core library
+aws-cdk.core
+
+# AWS Lambda module for defining Lambda functions
+aws-cdk.aws-lambda
+
+# IAM module for setting permissions
+aws-cdk.aws-iam
+
+# EventBridge modules for scheduling Lambda triggers
+aws-cdk.aws-events
+aws-cdk.aws-events-targets

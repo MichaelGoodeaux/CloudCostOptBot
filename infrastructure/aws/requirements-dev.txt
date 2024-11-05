@@ -1,0 +1,19 @@
+# Development dependencies
+
+# Core CDK dependencies (same as in requirements.txt)
+aws-cdk.core
+aws-cdk.aws-lambda
+aws-cdk.aws-iam
+aws-cdk.aws-events
+aws-cdk.aws-events-targets
+
+# Testing and linting tools
+pytest                # Testing framework for unit and integration tests
+pytest-mock           # Mocking support for pytest
+flake8                # Linting tool to enforce coding standards
+black                 # Code formatter for consistent style
+mypy                  # Static type checker for Python
+cdk-nag               # CDK best practice checker (optional, AWS best practices)
+
+# CDK testing utilities (optional)
+aws-cdk.assertions    # CDK testing library for assertions in tests

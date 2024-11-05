@@ -1,0 +1,12 @@
+# function.yaml.template - GCP Deployment Manager template with environment variable placeholders
+
+resources:
+  - name: ${GCP_FUNCTION_NAME}
+    type: gcp-types/cloudfunctions-v1:projects.locations.functions
+    properties:
+      location: ${GCP_REGION}
+      entryPoint: handler               # The handler function entry point
+      runtime: python39
+      sourceArchiveUrl: gs://${GCP_BUCKET_NAME}/function_package.zip  # GCS URL of the zip package
+      environmentVariables:
+        COST_THRESHOLD: "100.0"  # Example environment variable

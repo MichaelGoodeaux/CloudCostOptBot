@@ -1,0 +1,1 @@
+# __init__.py - Initializes the config module

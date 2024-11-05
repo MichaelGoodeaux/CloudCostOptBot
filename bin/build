@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# Default image names
+PROD_IMAGE_NAME="cost-optimization-bot"
+DEV_IMAGE_NAME="cost-optimization-bot-dev"
+
+# Default configurations
+TARGET="prod"    # Default target container to run, can be "prod" or "dev"
+
+# Help message
+usage() {
+  echo "Usage: $0 [-t prod|dev] [--target prod|dev]"
+  echo
+  echo "Options:"
+  echo "  -t, --target prod|dev       Specify 'prod' to run the production container, 'dev' for the development container (default: prod)"
+  echo
+  exit 1
+}
+
+# Parse command-line arguments
+while [[ "$1" != "" ]]; do
+  case $1 in
+    -t | --target )    shift; TARGET=$1 ;;
+    -h | --help )      usage ;;
+    * )                usage ;; # Unknown option
+  esac
+  shift
+done
+
+# Check for required parameters
+if [ -z "$SLACK_WEBHOOK_URL" ]; then
+  echo "Error: SLACK_WEBHOOK_URL is required as an environment variable or command-line argument"
+  usage
+fi
+
+# Build Docker images (automatically when running the script)
+echo "Building production Docker image..."
+docker build -f Dockerfile -t $PROD_IMAGE_NAME .
+
+echo "Building development Docker image for testing..."
+docker build -f Dockerfile.dev -t $DEV_IMAGE_NAME .
+
+# Choose the image to run based on the target
+if [ "$TARGET" == "prod" ]; then
+  IMAGE_NAME=$PROD_IMAGE_NAME
+  echo "Running production container..."
+else
+  IMAGE_NAME=$DEV_IMAGE_NAME
+  echo "Running development container..."
+fi
+
+# Run the selected Docker container, using environment variables inherited from the repository
+docker run \
+  -e ENABLE_AWS \
+  -e ENABLE_AZURE \
+  -e ENABLE_GCP \
+  -e SLACK_WEBHOOK_URL \
+  -e AWS_ACCESS_KEY_ID \
+  -e AWS_SECRET_ACCESS_KEY \
+  -e AWS_REGION \
+  -e AZURE_CLIENT_ID \
+  -e AZURE_CLIENT_SECRET \
+  -e AZURE_TENANT_ID \
+  -e AZURE_SUBSCRIPTION_ID \
+  -e GOOGLE_APPLICATION_CREDENTIALS \
+  -e GCP_PROJECT_ID \
+  -e GCP_REGION \
+  $IMAGE_NAME

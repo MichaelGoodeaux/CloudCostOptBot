@@ -1,0 +1,25 @@
+# requirements.txt - Python dependencies for the cost optimization bot
+
+# Core dependency for sending HTTP requests
+requests
+
+# AWS SDK (boto3) for interacting with AWS services like Cost Explorer and EC2
+boto3
+
+# Azure SDKs
+azure-identity          # For authenticating with Azure services
+azure-mgmt-costmanagement  # For accessing Azure Cost Management
+azure-mgmt-compute      # For interacting with Azure VMs
+
+# GCP SDKs
+google-cloud-billing    # For accessing Google Cloud billing information
+google-cloud-compute    # For interacting with Google Cloud Compute Engine
+
+# Specify compatible versions if necessary:
+# requests==
+# boto3==
+# azure-identity==
+# azure-mgmt-costmanagement==
+# azure-mgmt-compute==
+# google-cloud-billing==
+# google-cloud-compute==

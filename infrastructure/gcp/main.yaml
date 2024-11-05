@@ -1,0 +1,22 @@
+# main.yaml - GCP Deployment Manager configuration
+
+imports:
+  - path: templates/function.yaml
+  - path: templates/scheduler.yaml
+
+resources:
+  - name: cost-optimization-function
+    type: templates/function.yaml
+    properties:
+      location: us-central1
+      entryPoint: handler
+      runtime: python39
+      sourceArchiveUrl: gs://<your-bucket-name>/function-code.zip
+
+  - name: cost-optimization-scheduler
+    type: templates/scheduler.yaml
+    properties:
+      location: us-central1
+      schedule: '0 0 * * *'  # Runs daily at midnight
+      timeZone: 'America/Los_Angeles'
+      targetFunction: $(ref.cost-optimization-function.name)

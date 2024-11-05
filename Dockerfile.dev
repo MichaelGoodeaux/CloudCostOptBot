@@ -1,0 +1,23 @@
+# Dockerfile.dev - Development
+
+# Use a base Python image
+FROM python:3.9
+
+# Set the working directory
+WORKDIR /app
+
+# Copy both production and development requirements
+COPY python/requirements.txt python/requirements-dev.txt ./
+
+# Install production and development dependencies
+RUN pip install --no-cache-dir -r requirements.txt -r requirements-dev.txt
+
+# Copy application code and tests into the container
+COPY python/ python/
+COPY tests/ tests/
+
+# Set PYTHONPATH for the application
+ENV PYTHONPATH=/app/python
+
+# Default command to run tests (can be overridden when running the container)
+CMD ["pytest", "tests/"]

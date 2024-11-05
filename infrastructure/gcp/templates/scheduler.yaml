@@ -1,0 +1,13 @@
+# scheduler.yaml - Template for GCP Scheduler
+
+resources:
+  - name: !Ref "name"
+    type: gcp-types/cloudscheduler-v1:projects.locations.jobs
+    properties:
+      location: !Ref "location"
+      schedule: !Ref "schedule"
+      timeZone: !Ref "timeZone"
+      httpTarget:
+        uri: $(ref. !Ref "targetFunction".httpsTrigger.url)
+        httpMethod: POST
+        body: ""

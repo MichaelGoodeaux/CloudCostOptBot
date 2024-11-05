@@ -1,0 +1,39 @@
+[flake8]
+# Set the maximum allowed line length (PEP8 recommends 79, but 88 is common)
+max-line-length = 88
+
+# Ignore specific rules (customize as needed)
+# Example ignores:
+# E203: Whitespace before ':'
+# W503: Line break occurred before a binary operator
+# F403: 'from module import *' used
+ignore = 
+    E203,
+    W503,
+    F403
+
+# Exclude specific directories (e.g., virtual environments, migrations, and cache files)
+exclude = 
+    .git,
+    __pycache__,
+    env,
+    venv,
+    migrations,
+    tests,
+    .pytest_cache,
+    build,
+    dist
+
+# Enable specific rules if desired (optional)
+# For example, error on TODO comments in production code
+per-file-ignores = 
+    # Allow TODOs in tests only
+    tests/*: T000
+
+# Set max complexity for cyclomatic complexity checks
+max-complexity = 10
+
+# Output formatting options
+format = default
+show-source = True
+statistics = True
